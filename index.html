@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotebookLM スライド作成機能調査 LP</title>
+<style>
+:root {
+  --ink:#111; --blue:#1d63ff; --red:#ff2f2f; --green:#16a34a; --yellow:#ffcd1f;
+  --bg1:#eef8ff; --bg2:#fff4d6; --panel:#ffffff; --border:5px solid #111; --shadow:0 10px 0 #111;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Yu Gothic","Hiragino Sans","Meiryo",sans-serif;color:var(--ink);
+background:linear-gradient(90deg,var(--bg1),#fff,var(--bg2));}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 16px 70px;}
+.hero,.panel{background:linear-gradient(135deg,#fffef4 0%,#f8fbff 100%);border:var(--border);border-radius:34px;box-shadow:var(--shadow);}
+.hero{padding:26px 26px 22px;}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;}
+.kicker{display:inline-block;background:var(--yellow);border:var(--border);border-radius:999px;padding:10px 18px;
+font-weight:900;box-shadow:0 8px 0 #111;margin-bottom:14px;transform:rotate(-2deg)}
+h1{margin:0 0 12px;line-height:1.02;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;letter-spacing:-.04em}
+.c1{color:var(--blue)} .c2{color:var(--red)} .c3{color:#f4b000} .c4{color:var(--green)}
+.lead{font-size:1.07rem;font-weight:700;line-height:1.8;max-width:34em;margin:0 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 16px}
+.chip{background:#fff;border:4px solid #111;border-radius:999px;padding:8px 12px;font-weight:900}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;padding:14px 18px;border:var(--border);border-radius:18px;
+font-weight:900;box-shadow:0 8px 0 #111;color:#111;background:#fff}
+.btn.primary{background:var(--blue);color:#fff} .btn.yellow{background:var(--yellow)}
+.hero-visual{border:var(--border);border-radius:26px;background:#fff;padding:12px;box-shadow:0 8px 0 #111}
+.hero-visual img{display:block;width:100%;height:auto;border-radius:16px}
+.panel{margin-top:28px;padding:24px}
+.section-title{font-size:clamp(1.8rem,3.2vw,2.8rem);margin:0 0 8px;text-align:center;font-weight:900}
+.section-sub{text-align:center;font-weight:700;max-width:48em;margin:0 auto 22px;line-height:1.8}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:var(--border);border-radius:24px;background:#fff;box-shadow:0 8px 0 #111;padding:18px}
+.num{width:48px;height:48px;border-radius:14px;border:var(--border);display:flex;align-items:center;justify-content:center;
+font-weight:900;font-size:1.3rem;margin-bottom:10px}
+.n1{background:var(--yellow)} .n2{background:#8be7ff} .n3{background:#ffb9d8}
+.card h3{margin:0 0 8px;font-size:1.28rem;line-height:1.2} .card p{margin:0;font-weight:700;line-height:1.7}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{border:var(--border);border-radius:24px;background:#fff;box-shadow:0 8px 0 #111;padding:16px}
+.box h3{margin:0 0 10px;font-size:1.32rem}
+video,audio,iframe{width:100%;border-radius:16px;background:#f4f4f4}
+video{aspect-ratio:16/9} iframe{height:520px;border:0}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gitem{border:var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 0 #111;padding:10px}
+.gitem img{display:block;width:100%;height:auto;border-radius:14px}
+.gitem p{margin:10px 4px 2px;font-weight:900}
+.downloads{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.dl{border:var(--border);border-radius:22px;background:#fff;box-shadow:0 8px 0 #111;padding:16px}
+.dl h4{margin:0 0 8px;font-size:1.08rem} .dl a{font-weight:900;color:#0b55d8}
+footer{padding-top:10px;text-align:center;font-weight:800;color:#444}
+@media (max-width:900px){
+  .hero-grid,.cards,.media-grid,.gallery,.downloads{grid-template-columns:1fr}
+  .wrap{padding:16px 10px 56px}
+  .hero,.panel{padding:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">NotebookLM × Slide Decks × PPTX</div>
+        <h1><span class="c1">NotebookLM</span>の<br><span class="c2">限界突破</span>を整理する<br><span class="c3">スライド作成</span><span class="c4">実践LP</span></h1>
+        <p class="lead">アップロード資料をもとに、NotebookLMのスライド生成、20文字制限の扱い、個別リビジョン、画像プレースホルダー戦略、PPTX書き出しまでをひと目で追えるランディングページです。</p>
+        <div class="chips">
+          <span class="chip">20文字制限</span>
+          <span class="chip">Presenter Slides</span>
+          <span class="chip">PPTX出力</span>
+          <span class="chip">画像プレースホルダー</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#video">動画を見る</a>
+          <a class="btn yellow" href="#pdfs">PDFを確認</a>
+          <a class="btn" href="#downloads">ファイル一覧へ</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="quest_cover.png" alt="NotebookLM Slide Quest 表紙">
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 class="section-title">このLPで見られる内容</h2>
+    <p class="section-sub">AIが得意な起草と、人間が担う最終編集を分けて、実務で使えるスライド制作フローとして整理しています。</p>
+    <div class="cards">
+      <div class="card"><div class="num n1">1</div><h3>20文字制限の考え方</h3><p>Presenter Slidesを前提に、冗長化しやすいAIの出力をどう抑えるかを整理します。</p></div>
+      <div class="card"><div class="num n2">2</div><h3>画像は直接出せない問題</h3><p>画像差し込みの制約を踏まえ、GoogleスライドやPowerPointを仕上げ工程として使う考え方をまとめています。</p></div>
+      <div class="card"><div class="num n3">3</div><h3>PPTXで仕上げる最終工程</h3><p>NotebookLMで骨組みを作り、人間が配置・整形・ブランド調整で完成度を上げる流れを見える化します。</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="video">
+    <h2 class="section-title">埋め込みメディア</h2>
+    <p class="section-sub">動画と音声をこのページから直接確認できます。</p>
+    <div class="media-grid">
+      <div class="box">
+        <h3>セミナー動画</h3>
+        <video controls preload="metadata">
+          <source src="NotebookLMセミナー__ある専門家の現場レポート.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="box">
+        <h3>音声解説</h3>
+        <audio controls preload="metadata">
+          <source src="行政基準を超えるAI提案の仕組み.m4a" type="audio/mp4">
+        </audio>
+        <p style="font-weight:700;line-height:1.8">行政基準を超えるAI提案の仕組みを音声で確認できます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 class="section-title">スライドの見どころ</h2>
+    <p class="section-sub">Quest資料の中から、フロー理解に役立つページを抜粋表示しています。</p>
+    <div class="gallery">
+      <div class="gitem"><img src="quest_page_1.png" alt="Quest page 1"><p>導入と全体像</p></div>
+      <div class="gitem"><img src="quest_page_2.png" alt="Quest page 2"><p>制約の整理</p></div>
+      <div class="gitem"><img src="quest_page_3.png" alt="Quest page 3"><p>改善の方向性</p></div>
+      <div class="gitem"><img src="quest_page_4.png" alt="Quest page 4"><p>運用上のポイント</p></div>
+      <div class="gitem"><img src="quest_page_5.png" alt="Quest page 5"><p>個別リビジョン例</p></div>
+      <div class="gitem"><img src="quest_page_6.png" alt="Quest page 6"><p>PPTX出力の活用</p></div>
+    </div>
+  </section>
+
+  <section class="panel" id="pdfs">
+    <h2 class="section-title">PDF資料の埋め込み表示</h2>
+    <p class="section-sub">調査レポートとQuest資料の両方を、そのままページ内で閲覧できます。</p>
+    <div class="media-grid">
+      <div class="box">
+        <h3>NotebookLM スライド作成機能調査</h3>
+        <iframe src="NotebookLM スライド作成機能調査.pdf"></iframe>
+      </div>
+      <div class="box">
+        <h3>NotebookLM Slide Quest</h3>
+        <iframe src="NotebookLM_Slide_Quest.pdf"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="downloads">
+    <h2 class="section-title">ダウンロード・参照ファイル</h2>
+    <p class="section-sub">PDF・動画・音声を個別ファイルとしても開けます。</p>
+    <div class="downloads">
+      <div class="dl"><h4>調査レポートPDF</h4><a href="NotebookLM スライド作成機能調査.pdf" target="_blank">NotebookLM スライド作成機能調査.pdf</a></div>
+      <div class="dl"><h4>Quest資料PDF</h4><a href="NotebookLM_Slide_Quest.pdf" target="_blank">NotebookLM_Slide_Quest.pdf</a></div>
+      <div class="dl"><h4>動画ファイル</h4><a href="NotebookLMセミナー__ある専門家の現場レポート.mp4" target="_blank">NotebookLMセミナー__ある専門家の現場レポート.mp4</a></div>
+      <div class="dl"><h4>音声ファイル</h4><a href="行政基準を超えるAI提案の仕組み.m4a" target="_blank">行政基準を超えるAI提案の仕組み.m4a</a></div>
+    </div>
+  </section>
+
+  <footer>NotebookLMの起草力と、人間の編集力をつなぐハイブリッド実践ページ</footer>
+</div>
+</body>
+</html>
